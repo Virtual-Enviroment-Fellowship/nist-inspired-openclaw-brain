@@ -1,0 +1,68 @@
+# verson 0.1 build.
+
+[build-system]
+requires = ["setuptools >= 75.0", "wheel >= 0.44"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "openclaw-nist-brain"
+version = "0.1.0"                           # bump this as you make releases
+description = "NIST SP 800-171 inspired persistent, auditable memory layer for agentic AI (OpenClaw compatible)"
+readme = {file = "README.md", content-type = "text/markdown"}
+requires-python = ">=3.10"                  # adjust if you need 3.9 or lower; Pydantic v2 needs >=3.7 but 3.10+ is safer in 2026
+license = {text = "MIT"}                    # change if you prefer another license
+authors = [
+    {name = "Devin Damon Shinkle", email = "your-email@example.com"},  # optional but nice
+]
+keywords = ["ai-agent", "memory", "openclaw", "pydantic", "audit", "provenance", "nist"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Development Status :: 3 - Alpha",
+]
+
+dependencies = [
+    "pydantic >= 2.8",                      # core validation + hashing support
+    "pydantic-settings >= 2.5",             # optional but very useful if you later add config via env/dotenv
+    # "prometheus-client >= 0.21",          # uncomment later if you expose metrics (e.g. memory entries count, write latency)
+    # "structlog >= 24.4",                  # optional structured logging (pairs nicely with Promtail)
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest >= 8.3",
+    "pytest-cov >= 5.0",
+    "ruff >= 0.6",                         # modern fast linter/formatter
+    "mypy >= 1.11",
+    "types-python-dateutil",                # if you use datetime heavily
+]
+test = ["pytest", "pytest-cov"]
+lint = ["ruff"]
+
+[project.urls]
+Homepage = "https://github.com/Virtual-Enviroment-Fellowship/nist-inspired-openclaw-brain"
+Repository = "https://github.com/Virtual-Enviroment-Fellowship/nist-inspired-openclaw-brain.git"
+# Documentation = "https://..."          # add later
+
+[tool.ruff]
+# Basic modern Ruff config (very fast replacement for black + flake8 + isort)
+line-length = 100
+target-version = "py310"
+select = ["E", "F", "W", "I", "PL", "UP", "ANN", "B", "C4", "SIM"]
+ignore = ["ANN101", "ANN102"]           # argument self/cls type hints (optional)
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+
+[tool.mypy]
+python_version = "3.10"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = false           # set to true later when you're ready for strict typing
