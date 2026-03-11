@@ -2,44 +2,42 @@
 A new conception of a military-grade persistent and auditable agenic ai memory system using Pydantic, Promtail, SQLite, and JSONL using NIST SP 800-171 auditing as inspiration.
 
 ```mermaid
-graph LR
-    direction LR
+graph TD
+    direction TB
 
-    A["User / Messaging App<br>e.g. WhatsApp, Slack, X, Terminal"] -->|sends message / command| B["OpenClaw Runtime<br>Agent Execution Loop<br>• Tool invocation<br>• LLM reasoning & calls<br>• State transitions"]
+    A["User / Messaging App<br>WhatsApp · Slack · X · Terminal"] 
+    -->|sends message / command| B["OpenClaw Runtime<br>Agent Execution Loop"]
 
-    B -->|memory ops:<br>write/read/update/delete| C["Pydantic-validated<br>Memory Entries<br>• Strict schemas<br>• Timestamps & UUID<br>• Source provenance<br>• Auto SHA-256 hash<br>• Versioning & prev-link"]
+    B -->|memory operations| C["Pydantic-validated<br>Memory Entries"]
 
-    C <-->|every memory op emits<br>structured event| D["Promtail → Loki<br>Immutable Audit Logs<br>• Append-only JSON<br>• Full provenance & timestamps<br>• Queryable by agent/session/user/tool<br>• Tamper-evident history"]
+    C <-->|emits structured event| D["Promtail → Loki<br>Immutable Audit Logs"]
 
     subgraph "Persistent & Auditable Storage Layer"
-        E["Local / On-prem Storage<br>• Append-only JSONL primary<br>• SQLite metadata index<br>• Optional encryption-at-rest<br>• Future: S3-compatible / distributed"]
+        E["Local / On-prem Storage<br>• JSONL primary<br>• SQLite index"]
     end
 
     C --> E
     D --> E
 
-    E -->|provenance & audit queries| F["Audit & Observability Interface<br>• CLI query tool<br>• FastAPI / REST endpoint<br>• Grafana mini-dashboard<br>• Trace replay & heatmaps<br>• Access pattern viz"]
+    E -->|provenance & audit queries| F["Audit & Observability Interface"]
 
-    F -->|returns full history,<br>diffs, access logs| B
-    F -->|visual inspection & debugging| User["User"]
+    F -->|returns history, diffs, logs| B
+    F -->|visual inspection & debugging| A
 
-    NIST["NIST SP 800-171 Inspiration<br>• Audit & accountability (AU)<br>• Media protection & integrity (MP)<br>• Access control & provenance (AC)<br>• Config management & logging<br>• Battle-tested controls for high-stakes systems"]:::callout
+    NIST["NIST SP 800-171 Inspiration<br>• Audit & accountability<br>• Media protection<br>• Access control & provenance"]:::callout
 
-    NIST -.->|shapes| C
-    NIST -.->|shapes| D
-    NIST -.->|shapes| F
+    NIST -.-> C
+    NIST -.-> D
+    NIST -.-> F
 
-    %% Force better layout with invisible links
-    A --- B --- C --- E --- F
-    D --- E
-
-    %% Styling for visual impact
-    classDef callout fill:#ffeb3b,stroke:#f57f17,stroke-width:2px,color:#000,font-weight:bold
-    classDef default rx:10,ry:10  %% Rounded corners for all nodes
-    style A fill:#f8bbd0,stroke:#ad1457
-    style B fill:#bbdefb,stroke:#1565c0,stroke-width:2.5px
-    style C fill:#c8e6c9,stroke:#2e7d32,stroke-width:2px
-    style D fill:#ffcdd2,stroke:#c62828,stroke-width:2px
+    %% Styling (high contrast + GitHub-friendly)
+    classDef callout fill:#fef08c,stroke:#854d0e,stroke-width:3px,color:#1c1917,font-weight:700
+    style A fill:#fce7f3,stroke:#831843,color:#831843
+    style B fill:#dbeafe,stroke:#1e40af,color:#1e40af
+    style C fill:#d1fae5,stroke:#065f46,color:#065f46
+    style D fill:#fee2e2,stroke:#9f1239,color:#9f1239
+    style E fill:#ccfbf1,stroke:#134e4a,color:#134e4a
+    style F fill:#fef3c7,stroke:#854d0e,color:#854d0e
     style E fill:#e0f7fa,stroke:#006064
     style F fill:#fff9c4,stroke:#f9a825,stroke-width:2px
     style User fill:#424242,stroke:#212121,color:#fff
