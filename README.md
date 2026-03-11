@@ -1,7 +1,14 @@
 # nist-inspired-openclaw-brain
-A new conception of a military-grade persistent an auditable agenic ai memory system using Pydantic, Promtail, SQLite, and JSONL using NIST SP 800-171 auditing as inspiration.
+A new conception of a military-grade persistent and auditable agenic ai memory system using Pydantic, Promtail, SQLite, and JSONL using NIST SP 800-171 auditing as inspiration.
 
-```markdown
+GitHub sees the whole thing as “here is an example of Markdown code” and therefore refuses to render the inner Mermaid diagram. That’s why you’re seeing the ```mermaid line literally on the page.
+
+### Secondary issue (the one that caused your earlier “Parse error on line 22”)
+Inside the nodes you have real line breaks instead of `<br>`. Mermaid (on GitHub) treats those newlines as syntax errors, which is why you got the parser crash before.
+
+### Fixed version (ready to copy-paste)
+**Replace the entire broken section** (from the line ```markdown all the way down to its closing ```) with exactly this:
+
 ```mermaid
 graph TD
     direction TB
@@ -24,7 +31,7 @@ graph TD
     F -->|returns full history, diffs, access logs| B
     F -->|visual inspection & debugging| User
 
-    NIST[NIST SP 800-171 Inspiration<br>• Audit & accountability (AU family)<br>• Media protection & integrity (MP family)<br>• Access control & provenance (AC family)<br>• Configuration management & logging<br>• Battle-tested controls for high-stakes systems]:::callout
+    NIST["NIST SP 800-171 Inspiration<br>• Audit & accountability (AU family)<br>• Media protection & integrity (MP family)<br>• Access control & provenance (AC family)<br>• Configuration management & logging<br>• Battle-tested controls for high-stakes systems"]:::callout
 
     NIST -.->|shapes| C
     NIST -.->|shapes| D
