@@ -1,5 +1,7 @@
 # nist-inspired-openclaw-brain
-A new conception of a military-grade persistent and auditable agenic ai memory system using Pydantic, Promtail, SQLite, and JSONL using NIST SP 800-171 auditing as inspiration.
+A new conception of a military-grade persistent and auditable agenic ai memory system using Pydantic, Promtail, SQLite, and JSONL inspired by NIST SP 800-171 auditing as well as AMI seed funding and xAI's Grokipedia.
+
+While novel for openClaw - this system will gradually improve into a model ephemeral memory workflow for Enterprise applications using better bots.
 
 ```mermaid
 graph TD
